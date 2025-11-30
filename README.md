@@ -62,37 +62,36 @@ This breakthrough is driven by an innovative data engine that has automatically 
 - Python 3.12 or higher
 - PyTorch 2.7 or higher
 - CUDA-compatible GPU with CUDA 12.6 or higher
+- [uv](https://github.com/astral-sh/uv)
 
-1. **Create a new Conda environment:**
-
-```bash
-conda create -n sam3 python=3.12
-conda deactivate
-conda activate sam3
-```
-
-2. **Install PyTorch with CUDA support:**
-
-```bash
-pip install torch==2.7.0 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
-```
-
-3. **Clone the repository and install the package:**
+1. **Clone the repository:**
 
 ```bash
 git clone https://github.com/facebookresearch/sam3.git
 cd sam3
-pip install -e .
+```
+
+2. **Install dependencies with uv:**
+
+```bash
+# This creates a virtual environment at .venv and installs dependencies
+uv sync
+```
+
+3. **Activate the environment:**
+
+```bash
+source .venv/bin/activate
 ```
 
 4. **Install additional dependencies for example notebooks or development:**
 
 ```bash
 # For running example notebooks
-pip install -e ".[notebooks]"
+uv sync --extra notebooks
 
 # For development
-pip install -e ".[train,dev]"
+uv sync --extra train --extra dev
 ```
 
 ## Getting Started
@@ -347,7 +346,7 @@ We release 2 image benchmarks, [SA-Co/Gold](scripts/eval/gold/README.md) and
 To set up the development environment:
 
 ```bash
-pip install -e ".[dev,train]"
+uv sync --extra dev --extra train
 ```
 
 To format the code:
